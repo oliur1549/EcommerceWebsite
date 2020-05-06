@@ -1,0 +1,80 @@
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<section class="content-header">
+    <h1>
+        SlideShows List
+    </h1>
+</section>
+<section class="content">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box">
+                <div class="box-header">
+                    <h3 class="box-title">SlideShows Table</h3>
+                </div><!-- /.box-header -->
+                <div class="box-body">
+                    <table id="slideShowTable" class="table table-bordered table-hover dataTable">
+                        <thead>
+                            <tr>
+                                <th>Id</th>
+                                <th>Name</th>
+                                <th>Title</th>
+                                <th>Description</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var slideshow in ViewBag.SlideShows)
+                            {
+                                <tr>
+                                    <td>@slideshow.Id</td>
+                                    <td>
+                                    <img src="~/slideshow/@slideshow.Name" width="120" />
+                                    @slideshow.Name</td>
+                                    <td>@(slideshow.Status ? "Show" : "Hide")</td>
+                                    <td>@slideshow.Title</td>
+                                    <td>@slideshow.Description</td>
+                                    <td>
+                                        <a asp-area="admin" asp-controller="slideshow" asp-action="edit"
+                                           asp-route-id="@slideshow.Id">Edit</a> |
+                                            <a asp-area="admin" asp-controller="slideshow" asp-action="delete"
+                                               asp-route-id="@slideshow.Id" onclick="return confirm('Are you sure?')">Delete</a> 
+
+                                    </td>
+                                </tr>
+                            }
+
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <th>Id</th>
+                                <th>Name</th>
+                                <th>Title</th>
+                                <th>Description</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div><!-- /.box-body -->
+</section>
+<script>
+    $(function () {
+        $('#slideShowTable').DataTable({
+            "paging": true,
+            "lengthChange": false,
+            "searching": false,
+            "ordering": true,
+            "info": true,
+            "autoWidth": false,
+        });
+    });
+</script>

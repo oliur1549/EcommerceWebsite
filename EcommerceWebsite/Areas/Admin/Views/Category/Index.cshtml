@@ -1,0 +1,99 @@
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<section class="content-header">
+    <h1>
+        Category List
+    </h1>
+</section>
+<section class="content">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box">
+                <div class="box-header">
+                    <h3 class="box-title">Category Table</h3>
+                </div><!-- /.box-header -->
+                <div class="box-body">
+                    <table id="categoryTable" class="table table-bordered table-hover dataTable">
+                        <thead>
+                            <tr>
+                                <th>Id</th>
+                                <th>Name</th>
+                                <th>Status</th>
+                                <th>Parent</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var category in ViewBag.categories)
+                            {
+                                <tr>
+                                    <td>@category.Id</td>
+                                    <td><b>@category.Name</b></td>
+                                    <td>@(category.Status ? "Show" : "Hide")</td>
+                                    <td>@(category.Parent == null ? "" : category.Parent.Name)</td>
+                                    <td>
+                                        <a asp-area="admin" asp-controller="category" asp-action="edit"
+                                           asp-route-id="@category.Id">Edit</a> |
+                                        @if (category.InverseParents != null &&
+                                   category.InverseParents.Count == 0)
+                                        {
+                                            <a asp-area="admin" asp-controller="category" asp-action="delete"
+                                               asp-route-id="@category.Id" onclick="return confirm('Are you sure?')">Delete</a> 
+                                               <span>|</span>
+                                        }
+                                    <a asp-area="admin" asp-controller="category" asp-action="AddSubcategory"
+                                       asp-route-id="@category.Id">Add Sub Category</a>
+                                    </td>
+                                </tr>
+                                if (category.InverseParents != null && category.InverseParents.Count != 0)
+                                {
+                                    foreach (var subcategory in category.InverseParents)
+                                    {
+                                        <tr>
+                                            <td>@subcategory.Id</td>
+                                            <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@subcategory.Name</td>
+                                            <td>@(subcategory.Status ? "Show" : "Hide")</td>
+                                            <td>@subcategory.Parent.Name</td>
+                                            <td>
+                                                <a asp-area="admin" asp-controller="category" asp-action="edit"
+                                                   asp-route-id="@subcategory.Id">Edit</a> |
+                                                 <a asp-area="admin" asp-controller="category" asp-action="delete"
+                                                   asp-route-id="@subcategory.Id" onclick="return confirm('Are you sure?')">Delete</a>
+                                            </td>
+                                        </tr>
+                                    }
+                                }
+                            }
+
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <th>Id</th>
+                                <th>Name</th>
+                                <th>Status</th>
+                                <th>Parent</th>
+                                <th>Action</th>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div><!-- /.box-body -->
+</section>
+<script>
+    $(function () {
+        $('#categoryTable').DataTable({
+            "paging": true,
+            "lengthChange": false,
+            "searching": false,
+            "ordering": true,
+            "info": true,
+            "autoWidth": false,
+        });
+    });
+</script>
