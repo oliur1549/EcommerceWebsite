@@ -15,7 +15,8 @@
                     {
                         @if (subcategory.Status)
                         {
-                            <li><a href="products.html"><i class="icon-chevron-right"></i>@subcategory.Name</a></li>
+                            <li><a asp-controller="product" asp-action="category"
+                   asp-route-id="@subcategory.Id"><i class="icon-chevron-right"></i>@subcategory.Name</a></li>
                         }
                     }
                 </ul>

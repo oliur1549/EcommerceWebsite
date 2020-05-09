@@ -4,7 +4,6 @@
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
 }
 @using EcommerceWebsite.Models;
-@using EcommerceWebsite.Helpers;
 <section class="content-header">
     <h1>
         Product List
@@ -39,6 +38,7 @@
                                 <th>Quantity</th>
                                 <th>Status</th>
                                 <th>Category</th>
+                                <th>Featured</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -50,16 +50,21 @@
                                 <tr>
                                     <td>@product.Id</td>
                                     <td>@product.Name</td>
-                                    <td>@*<img src="~/products/@photo.Name" width="120"/>*@</td>
+                                    <td><img src="~/products/@photo.Name" width="120"/></td>
                                     <td>@product.Price</td>
                                     <td>@product.Quantity</td>
                                     <td>@(product.Status ? "Show" : "Hide")</td>
+                                    <td>@(product.Featured ? "Featured" : "")</td>
                                     <td>@(product.Category.Name)</td>
                                     <td>
                                         <a asp-area="admin" asp-controller="product" asp-action="edit"
                                            asp-route-id="@product.Id">Edit</a> |
                                         <a asp-area="admin" asp-controller="product" asp-action="delete"
-                                           asp-route-id="@product.Id" onclick="return confirm('Are you sure?')">Delete</a>
+                                           asp-route-id="@product.Id" onclick="return confirm('Are you sure?')">Delete</a> |
+                                        <a asp-area="admin" asp-controller="photo" asp-action="index"
+                                           asp-route-id="@product.Id">Photo List</a> |
+                                        <a asp-area="admin" asp-controller="photo" asp-action="add"
+                                           asp-route-id="@product.Id">Add Photo</a>
                                     </td>
                                 </tr>
                             }
@@ -74,6 +79,7 @@
                                 <th>Quantity</th>
                                 <th>Status</th>
                                 <th>Category</th>
+                                <th>Featured</th>
                                 <th>Action</th>
                             </tr>
                         </tfoot>

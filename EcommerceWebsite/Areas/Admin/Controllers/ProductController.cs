@@ -61,6 +61,15 @@ namespace EcommerceWebsite.Areas.Admin.Controllers
         {
             db.Products.Add(productViewModel.Product);
             db.SaveChanges();
+            var defaultPhoto = new Photo
+            {
+                Name = "no-image.jpg",
+                Status = true,
+                ProductId = productViewModel.Product.Id,
+                Featured = true
+            };
+            db.Photos.Add(defaultPhoto);
+            db.SaveChanges();
             return RedirectToAction("Index", "product", new { area = "admin" });
         }
         [HttpGet]
