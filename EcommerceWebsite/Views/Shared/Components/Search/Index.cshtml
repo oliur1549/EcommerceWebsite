@@ -1,12 +1,8 @@
 ﻿
-@{
-    Layout = null;
-}
-
-<form class="form-inline navbar-search" method="post" action="products.html">
-    <input id="srchFld" class="srchTxt" type="text" />
-    <select class="srchTxt">
-        @foreach (var category in Model)
+<form class="form-inline navbar-search" method="get" asp-controller="product" asp-action="search">
+    <input id="srchFld" class="srchTxt" type="text" name="Keyword" value="@Model.keyword"/>
+    <select class="srchTxt" name="categoryId">
+        @foreach (var category in Model.categories)
         {
             @if (category.InverseParents != null && category.InverseParents.Count > 0)
             {
@@ -15,12 +11,16 @@
                     {
                         @if (subcategory.Status)
                         {
-                            <option value="@subcategory.Id">@subcategory.Name</option>
+                            <option value="@subcategory.Id" selected="@(subcategory.Id == Model.categoryId ? "selected" : "")">@subcategory.Name</option>
                         }
 
                     }
                 </optgroup>
 
+            }
+            else
+            {
+                <option value="@category.Id" selected="@(category.Id == Model.categoryId ? "selected" : "")">@category.Name</option>
             }
         }
     </select>

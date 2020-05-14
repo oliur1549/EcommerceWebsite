@@ -40,5 +40,17 @@ namespace EcommerceWebsite.Controllers
             ViewBag.Products = category.Products.Where(p => p.Status).ToList().ToPagedList(pagenumber, 6);
             return View("category");
         }
+        [HttpGet]
+        [Route("search")]
+        public IActionResult Search(string Keyword,int categoryId, int? page)
+        {
+            var pagenumber = page ?? 1;
+            var products = db.Products.Where(p => p.Name.Contains(Keyword) && p.CategoryId == categoryId && p.Status).ToList();
+            ViewBag.Keyword = Keyword;
+            ViewBag.categoryId = categoryId;
+            ViewBag.CountProducts = products.Count;
+            ViewBag.Products = products.ToPagedList(pagenumber, 6);
+            return View("Search");
+        }
     }
 }

@@ -17,8 +17,20 @@ namespace EcommerceWebsite.SearchViewComponent
         }
         public async Task<IViewComponentResult> InvokeAsync()
         {
+            string keyword = HttpContext.Request.Query["keyword"].ToString();
+            int categoryId = -1;
+            if (HttpContext.Request.Query.ContainsKey("categoryId"))
+            {
+                 categoryId = int.Parse(HttpContext.Request.Query["categoryId"].ToString());
+            }
             List<Category> categories = db.Categories.Where(c => c.Status && c.Parent==null).ToList();
-            return View("Index", categories);
+            return View("Index", new InvokeResult() { keyword = keyword, categories=categories});
+        }
+        public class InvokeResult
+        {
+            public string keyword { get; set; }
+            public int categoryId { get; set; }
+            public List<Category> categories { get; set; }
         }
     }
 }

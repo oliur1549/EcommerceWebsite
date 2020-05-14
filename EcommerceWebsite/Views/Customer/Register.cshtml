@@ -1,0 +1,65 @@
+﻿
+@{
+    ViewData["Title"] = "Register";
+    Layout = "~/Views/Shared/_UserLayout.cshtml";
+}
+
+@model Account
+<div class="span9">
+    <ul class="breadcrumb">
+        <li><a  asp-controller="home" asp-action="index">Home</a> <span class="divider">/</span></li>
+        <li class="active">Registration</li>
+    </ul>
+    <h3> Registration</h3>
+    <div class="well">
+      
+        <form  class="form-horizontal" asp-controller="customer" asp-action="register">
+            <h4>Your personal information</h4>
+            <div class="control-group">
+                <label class="control-label" for="Username">Username <sup>*</sup></label>
+                <div class="controls">
+                    <input type="text" id="Username" placeholder="Username" asp-for="Username">
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label" for="Password">Password <sup>*</sup></label>
+                <div class="controls">
+                    <input type="password" id="Password" placeholder="Password" asp-for="Password"/>
+                </div>
+            </div>
+
+            <div class="control-group">
+                <label class="control-label" for="fullName">Full Name<sup>*</sup></label>
+                <div class="controls">
+                    <input type="text" id="fullName" placeholder="Full Name" asp-for="FullName" />
+                </div>
+            </div>
+
+            <div class="control-group">
+                <label class="control-label" for="email">Email<sup>*</sup></label>
+                <div class="controls">
+                    <input type="email" id="Email" placeholder="Email" asp-for="Email" />
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label" for="address">Address<sup>*</sup></label>
+                <div class="controls">
+                    <input type="text" id="address" placeholder="Adress" asp-for="Address"/>
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label" for="mobile">Mobile Phone<sup>*</sup> </label>
+                <div class="controls">
+                    <input type="text" name="mobile" id="mobile" placeholder="Mobile Phone" asp-for="Mobile"/>
+                </div>
+            </div>
+
+            <div class="control-group">
+                <div class="controls">
+                    <input class="btn btn-large btn-success" type="submit" value="Register" />
+                </div>
+            </div>
+        </form>
+    </div>
+
+</div>

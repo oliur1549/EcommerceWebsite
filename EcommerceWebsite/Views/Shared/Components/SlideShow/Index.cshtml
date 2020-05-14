@@ -2,10 +2,10 @@
 <div id="carouselBlk">
     <div id="myCarousel" class="carousel slide">
         <div class="carousel-inner">
-            @{ var index = 0;}
+            @{ var index = 2;}
             @foreach (var slideShow in Model)
             {
-                <div class="item @(index==0 ? "active" : "")">
+                <div class="item @(index==2 ? "active" : "")">
                     <div class="container">
                         <a href="#"><img style="width:100%" src="~/slideshow/@slideShow.Name" alt="special offers" /></a>
                         <div class="carousel-caption">

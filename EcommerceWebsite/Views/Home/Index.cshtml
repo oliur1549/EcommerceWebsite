@@ -7,9 +7,8 @@
 <div class="well well-small">
     <h4>Featured Products <small class="pull-right">@(ViewBag.CountFeaturedProducts)+ featured products</small></h4>
     <div class="row-fluid">
-        <div id="featured" class="carousel slide">
+        <div id="featured" class="carousel slider">
             <div class="carousel-inner">
-
                 <div class="item">
                     <ul class="thumbnails">
                         @foreach (var featuredProduct in ViewBag.FeaturedProducts)

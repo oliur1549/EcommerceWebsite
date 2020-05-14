@@ -28,14 +28,14 @@ namespace EcommerceWebsite.Models
                 .WithMany(c => c.RoleAccounts)
                 .HasForeignKey(d => d.AccountId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_Account_Role_Account");
+                .HasConstraintName("FK_RoleAccount_Account");
 
             builder.Entity<RoleAccount>()
                 .HasOne(d => d.Role)
                 .WithMany(c => c.RoleAccounts)
                 .HasForeignKey(d => d.RoleId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_Account_Role_Role");
+                .HasConstraintName("FK_RoleAccount_Role");
 
             builder.Entity<Category>()
                 .HasOne(d => d.Parent)
