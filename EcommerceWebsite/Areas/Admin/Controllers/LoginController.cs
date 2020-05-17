@@ -48,7 +48,8 @@ namespace EcommerceWebsite.Areas.Admin.Controllers
             var account = db.Accounts.SingleOrDefault(a => a.Username.Equals(username) && a.Status==true);
             if (account != null)
             {
-                if (BCrypt.Net.BCrypt.Verify(password, account.Password))
+                var roleofAccount = account.RoleAccounts.FirstOrDefault();
+                if (roleofAccount.RoleId==1 && BCrypt.Net.BCrypt.Verify(password, account.Password))
                 {
                     return account;
                 }
