@@ -41,11 +41,12 @@
     <div class="span6">
         <h3>@ViewBag.Product.Name</h3>
         <hr class="soft" />
-        <form class="form-horizontal qtyFrm">
+        <form class="form-horizontal qtyFrm" asp-controller="cart" asp-action="buy" method="post">
             <div class="control-group">
                 <label class="control-label"><span>$@ViewBag.Product.Price</span></label>
                 <div class="controls">
-                    <input type="number" min="1" value="1" class="span1" placeholder="Qty." />
+                    <input type="number" min="1" name="quantity" value="1" class="span1" placeholder="Qty." />
+                    <input type="hidden" name="id" value="@ViewBag.Product.Id"/>
                     <button type="submit" class="btn btn-large btn-primary pull-right"> Add to cart <i class=" icon-shopping-cart"></i></button>
                 </div>
             </div>
@@ -159,7 +160,8 @@
                                             <input type="checkbox">  Adds product to compair
                                         </label><br />
                                         <div class="btn-group">
-                                            <a href="product_details.html" class="btn btn-large btn-primary"> Add to <i class=" icon-shopping-cart"></i></a>
+                                            <a asp-controller="product" asp-action="details"
+                                   asp-route-id="@product.Id" class="btn btn-large btn-primary"> Add to <i class=" icon-shopping-cart"></i></a>
                                             <a asp-controller="product" asp-action="details"
                                            asp-route-id="@product.Id" class="btn btn-large"><i class="icon-zoom-in"></i></a>
                                         </div>
@@ -189,7 +191,8 @@
                                             <h4 style="text-align:center">
                                                 <a class="btn" asp-controller="product" asp-action="details"
                                            asp-route-id="@product.Id"> <i class="icon-zoom-in"></i></a>
-                                                <a class="btn" href="#">Add to <i class="icon-shopping-cart"></i></a>
+                                                <a class="btn" asp-controller="product" asp-action="details"
+                                   asp-route-id="@product.Id">Add to <i class="icon-shopping-cart"></i></a>
                                                 <a class="btn btn-primary" href="#">&euro;@productinfo.Price</a>
                                             </h4>
                                         </div>

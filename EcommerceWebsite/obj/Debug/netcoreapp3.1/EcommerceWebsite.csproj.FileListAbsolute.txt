@@ -172,7 +172,6 @@ E:\EcommerceWebsite\EcommerceWebsite\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\V
 E:\EcommerceWebsite\EcommerceWebsite\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\Photo\Add.cshtml.g.cs
 E:\EcommerceWebsite\EcommerceWebsite\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\Photo\Edit.cshtml.g.cs
 E:\EcommerceWebsite\EcommerceWebsite\obj\Debug\netcoreapp3.1\Razor\Views\Shared\Components\LatestProduct\Index.cshtml.g.cs
-E:\EcommerceWebsite\EcommerceWebsite\obj\Debug\netcoreapp3.1\EcommerceWebsite.csprojAssemblyReference.cache
 E:\EcommerceWebsite\EcommerceWebsite\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.JsonPatch.dll
 E:\EcommerceWebsite\EcommerceWebsite\bin\Debug\netcoreapp3.1\Microsoft.DotNet.PlatformAbstractions.dll
 E:\EcommerceWebsite\EcommerceWebsite\bin\Debug\netcoreapp3.1\Microsoft.Extensions.DependencyModel.dll
@@ -193,3 +192,7 @@ E:\EcommerceWebsite\EcommerceWebsite\obj\Debug\netcoreapp3.1\Razor\Views\Custome
 E:\EcommerceWebsite\EcommerceWebsite\obj\Debug\netcoreapp3.1\Razor\Views\Customer\Dashboard.cshtml.g.cs
 E:\EcommerceWebsite\EcommerceWebsite\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\Customer\Edit.cshtml.g.cs
 E:\EcommerceWebsite\EcommerceWebsite\obj\Debug\netcoreapp3.1\Razor\Views\Customer\AccessDenied.cshtml.g.cs
+E:\EcommerceWebsite\EcommerceWebsite\obj\Debug\netcoreapp3.1\Razor\Views\Cart\Index.cshtml.g.cs
+E:\EcommerceWebsite\EcommerceWebsite\obj\Debug\netcoreapp3.1\Razor\Views\Shared\Components\CartLeft\Index.cshtml.g.cs
+E:\EcommerceWebsite\EcommerceWebsite\obj\Debug\netcoreapp3.1\Razor\Views\Shared\Components\CartTop\Index.cshtml.g.cs
+E:\EcommerceWebsite\EcommerceWebsite\obj\Debug\netcoreapp3.1\EcommerceWebsite.csprojAssemblyReference.cache
