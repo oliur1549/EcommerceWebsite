@@ -116,6 +116,19 @@ namespace EcommerceWebsite.Controllers
             }
             return RedirectToAction("index", "cart");
         }
+        [HttpPost]
+        [Route("update")]
+        public IActionResult Update(int[] quantity)
+        {
+            List<Item> cart = SessionHelper.GetObjectAsJson<List<Item>>(HttpContext.Session, "cart");
+            for(var i=0; i< cart.Count; i++)
+            {
+                cart[i].Quantity = quantity[i];
+            }
+            SessionHelper.SetObjectAsJson(HttpContext.Session, "cart", cart);
+            return RedirectToAction("index", "cart");
+        }
+
         [Route("remove/{id}")]
         public IActionResult Remove(int id)
         {

@@ -10,48 +10,49 @@
 <h3>  SHOPPING CART [ <small>@ViewBag.CountItems Item(s) </small>]<a asp-controller="Home" class="btn btn-large pull-right"><i class="icon-arrow-left"></i> Continue Shopping </a></h3>
 <hr class="soft" />
 
-<table class="table table-bordered">
-    <thead>
-        <tr>
-            <th>Product</th>
-            <th>Description</th>
-            <th>Quantity/Update</th>
-            <th>Price</th>
-            <th>Total</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in ViewBag.cart)
-        {
-
+<form asp-controller="cart" asp-action="update" method="post">
+    <table class="table table-bordered">
+        <thead>
             <tr>
-                <td>
-                    <img width="60" src="~/products/@item.Photo" />
-                </td>
-                <td>@item.Name</td>
-                <td>
-                    <div class="input-append">
-                        <input class="span1" style="max-width:34px" placeholder="1" id="appendedInputButtons" size="16" type="text" value="@item.Quantity">
+                <th>Product</th>
+                <th>Description</th>
+                <th>Quantity/Update</th>
+                <th>Price</th>
+                <th>Total</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in ViewBag.cart)
+            {
 
-                        <button class="btn btn-danger" type="button">
+                <tr>
+                    <td>
+                        <img width="60" src="~/products/@item.Photo" />
+                    </td>
+                    <td>@item.Name</td>
+                    <td>
+                        <div class="input-append">
+                            <input class="span1" style="max-width:34px" placeholder="1" id="appendedInputButtons" size="16" type="number" value="@item.Quantity" min="1" name="quantity">
+
+                            <button class="btn btn-danger" type="submit"><i class="icon-pencil"></i></button>
 
                             <a class="btn btn-danger" asp-controller="cart" asp-action="remove" asp-route-id="@item.Id">
                                 <i class="icon-remove icon-white"></i>
                             </a>
-                        </button>
-                    </div>
-                </td>
-                <td>$@item.Price</td>
-                <td>$@(item.Price * item.Quantity)</td>
+
+                        </div>
+                    </td>
+                    <td>$@item.Price</td>
+                    <td>$@(item.Price * item.Quantity)</td>
+                </tr>
+            }
+
+            <tr>
+                <td colspan="4" style="text-align:right"><strong>TOTAL =</strong></td>
+                <td class="label label-important" style="display:block"> <strong> $@ViewBag.Total </strong></td>
             </tr>
-        }
-
-        <tr>
-            <td colspan="4" style="text-align:right"><strong>TOTAL =</strong></td>
-            <td class="label label-important" style="display:block"> <strong> $@ViewBag.Total </strong></td>
-        </tr>
-    </tbody>
-</table>
-
+        </tbody>
+    </table>
+</form>
 <a asp-controller="Home" class="btn btn-large"><i class="icon-arrow-left"></i> Continue Shopping </a>
 <a href="login.html" class="btn btn-large pull-right">Next <i class="icon-arrow-right"></i></a>
