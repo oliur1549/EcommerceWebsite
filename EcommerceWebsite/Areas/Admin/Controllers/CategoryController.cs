@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace EcommerceWebsite.Areas.Admin.Controllers
 {
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Admin", AuthenticationSchemes = "Admin_Schema")]
     [Area("admin")]
     [Route("admin/category")]
     public class CategoryController : Controller

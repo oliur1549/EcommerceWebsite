@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace EcommerceWebsite.Areas.Admin.Controllers
 {
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Admin", AuthenticationSchemes = "Admin_Schema")]
     [Area("admin")]
     [Route("admin/product")]
     public class ProductController : Controller

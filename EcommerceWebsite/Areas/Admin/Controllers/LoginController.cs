@@ -33,7 +33,7 @@ namespace EcommerceWebsite.Areas.Admin.Controllers
             var account = processingLogin(username, password);
             if(account != null)
             {
-                securityManager.SignIn(this.HttpContext, account);
+                securityManager.SignIn(this.HttpContext, account, "Admin_Schema");
                 return RedirectToAction("index", "dashboard", new { area = "admin" });
             }
             else
@@ -61,7 +61,7 @@ namespace EcommerceWebsite.Areas.Admin.Controllers
         [Route("signout")]
         public IActionResult SignOut()
         {
-            securityManager.SignOut(this.HttpContext);
+            securityManager.SignOut(this.HttpContext, "Admin_Schema");
             return RedirectToAction("index", "login", new { area = "admin" });
         }
         [HttpGet]
@@ -92,7 +92,7 @@ namespace EcommerceWebsite.Areas.Admin.Controllers
         [Route("accessdenied")]
         public IActionResult AccessDenied()
         {
-            return View();
+            return View("accessdenied");
         }
     }
 }

@@ -1,34 +1,32 @@
 ﻿using EcommerceWebsite.Models;
 using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Http;
 using System.Collections.Generic;
-using System.Linq;
 using System.Security.Claims;
 
 namespace EcommerceWebsite.Security
 {
     public class SecurityManager
     {
-        public async void SignIn(HttpContext httpContext,Account account)
+        public async void SignIn(HttpContext httpContext,Account account, string schema)
         {
             ClaimsIdentity claimsIdentity=new ClaimsIdentity(getUserClaim(account),
-                CookieAuthenticationDefaults.AuthenticationScheme);
+                schema);
             ClaimsPrincipal claimsPrincipal = new ClaimsPrincipal(claimsIdentity);
-            await httpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, claimsPrincipal);
+            await httpContext.SignInAsync(schema, claimsPrincipal);
         }
-        public async void SignOut(HttpContext httpContext)
+        public async void SignOut(HttpContext httpContext, string schema)
         {
-            await httpContext.SignOutAsync();
+            await httpContext.SignOutAsync(schema);
         }
         private IEnumerable<Claim> getUserClaim(Account account)
         {
             List<Claim> claims = new List<Claim>();
             claims.Add(new Claim(ClaimTypes.Name, account.Username));
-            account.RoleAccounts.ToList().ForEach(ra =>
+            foreach(var roleAccount in account.RoleAccounts)
             {
-                claims.Add(new Claim(ClaimTypes.Role, ra.Role.Name));
-            });
+                claims.Add(new Claim(ClaimTypes.Role, roleAccount.Role.Name));
+            };
             return claims;
         }
     }

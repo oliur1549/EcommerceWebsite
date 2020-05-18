@@ -69,7 +69,7 @@ namespace EcommerceWebsite.Controllers
             var account = processingLogin(username, password);
             if (account != null)
             {
-                securityManager.SignIn(this.HttpContext, account);
+                securityManager.SignIn(this.HttpContext, account, "User_Schema");
                 return RedirectToAction("dashboard", "customer");
             }
             else
@@ -95,10 +95,10 @@ namespace EcommerceWebsite.Controllers
         [Route("signout")]
         public IActionResult SignOut()
         {
-            securityManager.SignOut(this.HttpContext);
+            securityManager.SignOut(this.HttpContext, "User_Schema");
             return RedirectToAction("login", "customer");
         }
-        [Authorize(Roles= "Customer")]
+        [Authorize(Roles= "Customer", AuthenticationSchemes = "User_Schema")]
         [HttpGet]
         [Route("profile")]
         public IActionResult Profile()
@@ -107,7 +107,7 @@ namespace EcommerceWebsite.Controllers
             var customer = db.Accounts.SingleOrDefault(s => s.Username.Equals(user.Value));
             return View("profile", customer);
         }
-        [Authorize(Roles = "Customer")]
+        [Authorize(Roles = "Customer", AuthenticationSchemes = "User_Schema")]
         [HttpPost]
         [Route("profile")]
         public IActionResult Profile(Account account)
@@ -125,10 +125,18 @@ namespace EcommerceWebsite.Controllers
             db.SaveChanges();
             return View("profile",currentCustomer);
         }
+        [Authorize(Roles = "Customer", AuthenticationSchemes = "User_Schema")]
+        [HttpGet]
         [Route("dashboard")]
         public IActionResult Dashboard()
         {
-            return View("Dashboard");
+            return View("dashboard");
+        }
+        [HttpGet]
+        [Route("accessdenied")]
+        public IActionResult AccessDenied()
+        {
+            return View("accessdenied");
         }
     }
 }

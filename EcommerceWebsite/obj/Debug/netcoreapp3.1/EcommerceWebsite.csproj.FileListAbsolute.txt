@@ -187,8 +187,9 @@ E:\EcommerceWebsite\EcommerceWebsite\obj\Debug\netcoreapp3.1\Razor\Views\Product
 E:\EcommerceWebsite\EcommerceWebsite\obj\Debug\netcoreapp3.1\Razor\Views\Product\Category.cshtml.g.cs
 E:\EcommerceWebsite\EcommerceWebsite\obj\Debug\netcoreapp3.1\Razor\Views\Product\Search.cshtml.g.cs
 E:\EcommerceWebsite\EcommerceWebsite\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\Customer\Index.cshtml.g.cs
-E:\EcommerceWebsite\EcommerceWebsite\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\Customer\Profile.cshtml.g.cs
 E:\EcommerceWebsite\EcommerceWebsite\obj\Debug\netcoreapp3.1\Razor\Views\Customer\Register.cshtml.g.cs
 E:\EcommerceWebsite\EcommerceWebsite\obj\Debug\netcoreapp3.1\Razor\Views\Customer\Login.cshtml.g.cs
 E:\EcommerceWebsite\EcommerceWebsite\obj\Debug\netcoreapp3.1\Razor\Views\Customer\Profile.cshtml.g.cs
 E:\EcommerceWebsite\EcommerceWebsite\obj\Debug\netcoreapp3.1\Razor\Views\Customer\Dashboard.cshtml.g.cs
+E:\EcommerceWebsite\EcommerceWebsite\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\Customer\Edit.cshtml.g.cs
+E:\EcommerceWebsite\EcommerceWebsite\obj\Debug\netcoreapp3.1\Razor\Views\Customer\AccessDenied.cshtml.g.cs

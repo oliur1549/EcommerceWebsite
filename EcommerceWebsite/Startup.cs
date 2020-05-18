@@ -14,6 +14,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using EcommerceWebsite.Models;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Authentication;
 
 namespace EcommerceWebsite
 {
@@ -29,20 +31,38 @@ namespace EcommerceWebsite
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
-                .AddCookie(options =>
-                {
-                    options.LoginPath = "/admin/login/index";
-                    options.LogoutPath = "/admin/login/signout";
-                    options.AccessDeniedPath = "/admin/account/accessdenied";
-                });
+            services.AddAuthentication(options =>
+            {
+                options.DefaultScheme = "User_Schema";
+            })
+            .AddCookie("User_Schema", options =>
+             {
+                 options.LoginPath = "/customer/login";
+                 options.LogoutPath = "/customer/signout";
+                 options.AccessDeniedPath = "/customer/accessdenied";
+             })
+            .AddCookie("Admin_Schema", options =>
+            {
+                options.LoginPath = "/admin/login/index";
+                options.LogoutPath = "/admin/login/signout";
+                options.AccessDeniedPath = "/admin/account/accessdenied";
+            });
+
+
+            //services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+            //    .AddCookie(options =>
+            //    {
+            //        options.LoginPath = "/admin/login/index";
+            //        options.LogoutPath = "/admin/login/signout";
+            //        options.AccessDeniedPath = "/admin/account/accessdenied";
+            //    });
             services.AddSession();
             services.AddMvc();
             services.AddMvc().AddSessionStateTempDataProvider();
             services.AddDbContext<DatabaseContext>(options =>
                 options.UseLazyLoadingProxies().UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
-            
+
             services.AddControllersWithViews();
             services.AddRazorPages();
         }
@@ -61,15 +81,33 @@ namespace EcommerceWebsite
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+            app.Use(async (context, next) =>
+            {
+                var principal = new ClaimsPrincipal();
+
+                var result1 = await context.AuthenticateAsync("User_Schema");
+                if (result1?.Principal != null)
+                {
+                    principal.AddIdentities(result1.Principal.Identities);
+                }
+
+                var result2 = await context.AuthenticateAsync("Admin_Schema");
+                if (result2?.Principal != null)
+                {
+                    principal.AddIdentities(result2.Principal.Identities);
+                }
+                context.User = principal;
+
+                await next();
+            });
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
             app.UseRouting();
-
             app.UseAuthentication();
             app.UseSession();
             app.UseAuthorization();
-        
+
             app.UseEndpoints(endpoints =>
             {
                 //endpoints.MapControllerRoute(
