@@ -196,3 +196,6 @@ E:\EcommerceWebsite\EcommerceWebsite\obj\Debug\netcoreapp3.1\Razor\Views\Cart\In
 E:\EcommerceWebsite\EcommerceWebsite\obj\Debug\netcoreapp3.1\Razor\Views\Shared\Components\CartLeft\Index.cshtml.g.cs
 E:\EcommerceWebsite\EcommerceWebsite\obj\Debug\netcoreapp3.1\Razor\Views\Shared\Components\CartTop\Index.cshtml.g.cs
 E:\EcommerceWebsite\EcommerceWebsite\obj\Debug\netcoreapp3.1\EcommerceWebsite.csprojAssemblyReference.cache
+E:\EcommerceWebsite\EcommerceWebsite\obj\Debug\netcoreapp3.1\Razor\Views\Cart\Thanks.cshtml.g.cs
+E:\EcommerceWebsite\EcommerceWebsite\obj\Debug\netcoreapp3.1\Razor\Views\Customer\History.cshtml.g.cs
+E:\EcommerceWebsite\EcommerceWebsite\obj\Debug\netcoreapp3.1\Razor\Views\Customer\Details.cshtml.g.cs

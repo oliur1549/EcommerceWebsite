@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using EcommerceWebsite.Helpers;
 using EcommerceWebsite.Models;
@@ -23,8 +24,17 @@ namespace EcommerceWebsite.Controllers
         {
             List<Item> cart = SessionHelper.GetObjectAsJson<List<Item>>(HttpContext.Session, "cart");
             ViewBag.cart = cart;
-            ViewBag.CountItems = cart.Count;
-            ViewBag.Total = cart.Sum(it => it.Quantity * it.Price);
+            if (SessionHelper.GetObjectAsJson<List<Item>>(HttpContext.Session, "cart") == null)
+            {
+                ViewBag.CountItems = 0;
+                ViewBag.Total = 0;
+            }
+            else
+            {
+                ViewBag.CountItems = cart.Count;
+                ViewBag.Total = cart.Sum(it => it.Quantity * it.Price);
+            }
+                
             return View();
         }
         [Route("buy/{id}")]
@@ -121,7 +131,7 @@ namespace EcommerceWebsite.Controllers
         public IActionResult Update(int[] quantity)
         {
             List<Item> cart = SessionHelper.GetObjectAsJson<List<Item>>(HttpContext.Session, "cart");
-            for(var i=0; i< cart.Count; i++)
+            for (var i = 0; i < cart.Count; i++)
             {
                 cart[i].Quantity = quantity[i];
             }
@@ -137,6 +147,56 @@ namespace EcommerceWebsite.Controllers
             cart.RemoveAt(index);
             SessionHelper.SetObjectAsJson(HttpContext.Session, "cart", cart);
             return RedirectToAction("index", "cart");
+        }
+        [Route("checkout")]
+        public IActionResult Checkout()
+        {
+            var user = User.FindFirst(ClaimTypes.Name);
+            if (user ==null)
+            {
+                return RedirectToAction("Login", "Customer");
+            }
+            else
+            {
+                var customer = db.Accounts.SingleOrDefault(a => a.Username.Equals(user.Value));
+                //create invoice
+
+                var invoice = new Invoice
+                {
+                    Name = "Invoice Online",
+                    Created = DateTime.Now,
+                    Status = 1,
+                    AccountId = customer.Id
+                };
+                db.Invoices.Add(invoice);
+                db.SaveChanges();
+
+                //create invoice details
+                List<Item> cart = SessionHelper.GetObjectAsJson<List<Item>>(HttpContext.Session, "cart");
+                foreach (var item in cart)
+                {
+                    var invoicedeails = new InvoiceDetails
+                    {
+                        InvoiceId=item.Id,
+                        ProductId=item.Id,
+                        Price=item.Price,
+                        Quantity=item.Quantity
+                    };
+                    db.InvoiceDetails.Add(invoicedeails);
+                    db.SaveChanges();
+                }
+                //Remove items in cart
+
+                HttpContext.Session.Remove("cart");
+
+                return RedirectToAction("Thanks", "cart");
+            }
+        }
+
+        [Route("thanks")]
+        public IActionResult Thanks()
+        {
+            return View("Thanks");
         }
         private int exists(int id, List<Item> cart)
         {

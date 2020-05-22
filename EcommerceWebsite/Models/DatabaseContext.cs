@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Emit;
 using System.Threading.Tasks;
 
 namespace EcommerceWebsite.Models
@@ -13,13 +14,13 @@ namespace EcommerceWebsite.Models
         {
 
         }
-        public DatabaseContext(DbContextOptions<DatabaseContext> options) : base (options)
+        public DatabaseContext(DbContextOptions<DatabaseContext> options) : base(options)
         {
-            
+
         }
         protected override void OnModelCreating(ModelBuilder builder)
         {
-            
+
             builder.Entity<RoleAccount>()
                 .HasKey(pc => new { pc.RoleId, pc.AccountId });
 
@@ -27,15 +28,15 @@ namespace EcommerceWebsite.Models
                 .HasOne(d => d.Account)
                 .WithMany(c => c.RoleAccounts)
                 .HasForeignKey(d => d.AccountId)
-                .OnDelete(DeleteBehavior.ClientSetNull);
-            //.HasConstraintName("FK_RoleAccount_Account");
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_RoleAccount_Account");
 
             builder.Entity<RoleAccount>()
                 .HasOne(d => d.Role)
                 .WithMany(c => c.RoleAccounts)
                 .HasForeignKey(d => d.RoleId)
-                .OnDelete(DeleteBehavior.ClientSetNull);
-                //.HasConstraintName("FK_RoleAccount_Role");
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_RoleAccount_Role");
 
             builder.Entity<Category>()
                 .HasOne(d => d.Parent)
@@ -57,6 +58,32 @@ namespace EcommerceWebsite.Models
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_Product_Photo");
 
+            builder.Entity<Invoice>(entity =>
+            {
+                entity.HasOne(d => d.Account)
+                .WithMany(p => p.Invoices)
+                .HasForeignKey(d => d.AccountId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_Invoice_Account");
+            });
+
+            builder.Entity<InvoiceDetails>(entity =>
+            {
+                entity.HasKey(e => new { e.InvoiceId, e.ProductId });
+
+                entity.HasOne(d => d.Invoices)
+                .WithMany(p => p.InvoiceDetailses)
+                .HasForeignKey(d => d.InvoiceId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_InvoiceDetails_Invoice");
+
+                entity.HasOne(d => d.Product)
+               .WithMany(p => p.InvoiceDetailses)
+               .HasForeignKey(d => d.ProductId)
+               .OnDelete(DeleteBehavior.ClientSetNull)
+               .HasConstraintName("FK_InvoiceDetails_Product");
+            });
+
             base.OnModelCreating(builder);
         }
         public DbSet<Role> Roles { get; set; }
@@ -66,5 +93,7 @@ namespace EcommerceWebsite.Models
         public DbSet<Category> Categories { get; set; }
         public DbSet<SlideShow> SlideShows { get; set; }
         public DbSet<RoleAccount> RoleAccounts { get; set; }
+        public DbSet<Invoice> Invoices { get; set; }
+        public DbSet<InvoiceDetails> InvoiceDetails { get; set; }
     }
 }

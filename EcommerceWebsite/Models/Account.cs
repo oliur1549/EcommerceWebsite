@@ -11,6 +11,7 @@ namespace EcommerceWebsite.Models
         public Account()
         {
             RoleAccounts = new HashSet<RoleAccount>();
+            Invoices = new HashSet<Invoice>();
         }
         [Key]
         public int Id { get; set; }
@@ -22,5 +23,6 @@ namespace EcommerceWebsite.Models
         public string Mobile { get; set; }
         public bool Status { get; set; }
         public virtual ICollection<RoleAccount> RoleAccounts { get; set; }
+        public virtual ICollection<Invoice> Invoices { get; set; }
     }
 }

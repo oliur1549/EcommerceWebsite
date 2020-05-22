@@ -11,6 +11,7 @@ namespace EcommerceWebsite.Models
         public Product()
         {
             Photos = new HashSet<Photo>();
+            InvoiceDetailses = new HashSet<InvoiceDetails>();
         }
         [Key]
         public int Id { get; set; }
@@ -24,6 +25,7 @@ namespace EcommerceWebsite.Models
         public bool Featured { get; set; }
         public virtual Category Category { get; set; }
         public virtual ICollection<Photo> Photos { get; set; }
+        public virtual ICollection<InvoiceDetails> InvoiceDetailses { get; set; }
 
     }
 }

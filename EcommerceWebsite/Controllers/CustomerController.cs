@@ -138,5 +138,24 @@ namespace EcommerceWebsite.Controllers
         {
             return View("accessdenied");
         }
+        [Authorize(Roles = "Customer", AuthenticationSchemes = "User_Schema")]
+        [HttpGet]
+        [Route("history")]
+        public IActionResult History()
+        {
+            var user = User.FindFirst(ClaimTypes.Name);
+            var customer = db.Accounts.SingleOrDefault(a => a.Username.Equals(user.Value));
+            ViewBag.Invoices = customer.Invoices.OrderByDescending(i => i.Id).ToList();
+            return View("History");
+        }
+        [Authorize(Roles = "Customer", AuthenticationSchemes = "User_Schema")]
+        [HttpGet]
+        [Route("details/{id}")]
+        public IActionResult Details(int id)
+        {
+
+            ViewBag.InvoiceDetails = db.InvoiceDetails.Where(i=> i.InvoiceId==id).ToList();
+            return View("Details");
+        }
     }
 }

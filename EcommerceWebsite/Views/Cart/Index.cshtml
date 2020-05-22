@@ -22,31 +22,33 @@
             </tr>
         </thead>
         <tbody>
-            @foreach (var item in ViewBag.cart)
+            @if (ViewBag.cart != null)
             {
+                @foreach (var item in ViewBag.cart)
+                {
 
-                <tr>
-                    <td>
-                        <img width="60" src="~/products/@item.Photo" />
-                    </td>
-                    <td>@item.Name</td>
-                    <td>
-                        <div class="input-append">
-                            <input class="span1" style="max-width:34px" placeholder="1" id="appendedInputButtons" size="16" type="number" value="@item.Quantity" min="1" name="quantity">
+                    <tr>
+                        <td>
+                            <img width="60" src="~/products/@item.Photo" />
+                        </td>
+                        <td>@item.Name</td>
+                        <td>
+                            <div class="input-append">
+                                <input class="span1" style="max-width:34px" placeholder="1" id="appendedInputButtons" size="16" type="number" value="@item.Quantity" min="1" name="quantity">
 
-                            <button class="btn btn-danger" type="submit"><i class="icon-pencil"></i></button>
+                                <button class="btn btn-danger" type="submit"><i class="icon-pencil"></i></button>
 
-                            <a class="btn btn-danger" asp-controller="cart" asp-action="remove" asp-route-id="@item.Id">
-                                <i class="icon-remove icon-white"></i>
-                            </a>
+                                <a class="btn btn-danger" asp-controller="cart" asp-action="remove" asp-route-id="@item.Id">
+                                    <i class="icon-remove icon-white"></i>
+                                </a>
 
-                        </div>
-                    </td>
-                    <td>$@item.Price</td>
-                    <td>$@(item.Price * item.Quantity)</td>
-                </tr>
+                            </div>
+                        </td>
+                        <td>$@item.Price</td>
+                        <td>$@(item.Price * item.Quantity)</td>
+                    </tr>
+                }
             }
-
             <tr>
                 <td colspan="4" style="text-align:right"><strong>TOTAL =</strong></td>
                 <td class="label label-important" style="display:block"> <strong> $@ViewBag.Total </strong></td>
@@ -55,4 +57,7 @@
     </table>
 </form>
 <a asp-controller="Home" class="btn btn-large"><i class="icon-arrow-left"></i> Continue Shopping </a>
-<a href="login.html" class="btn btn-large pull-right">Next <i class="icon-arrow-right"></i></a>
+@if (ViewBag.cart != null && @ViewBag.CountItems >0)
+{
+    <a asp-controller="cart" asp-action="checkout" class="btn btn-large pull-right">Checkout <i class="icon-arrow-right"></i></a>
+}
